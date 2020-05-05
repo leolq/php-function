@@ -15,7 +15,7 @@ function dump($var)
 }
 
 /**
- * Notes: api josn返回
+ * Notes: api josn输出
  * User: Johnson
  * Date: 2020/5/5
  * Time: 14:27
