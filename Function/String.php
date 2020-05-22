@@ -94,3 +94,51 @@ function price_format($num, $decimals = 2)
     return number_format($num, $decimals, '.', '');
 }
 
+/**
+ * Notes: 替换手机号码中间四位数字
+ * User: Johnson
+ * Date: 2020/5/22
+ * Time: 16:04
+ * @param string $str
+ * @return string
+ */
+function hide_phone($str)
+{
+    $resstr = substr_replace($str, '****', 3, 4);
+    return $resstr;
+}
+
+/**
+ * Notes: 验证手机号码是否匹配
+ * User: Johnson
+ * Date: 2020/5/22
+ * Time: 17:04
+ * @param string $phone
+ * @return bool
+ */
+function preg_phone($phone)
+{
+    return preg_match('/^1[3-9]{2}\d{8}$/', $phone) ? true : false;
+}
+
+/**
+ * Notes: 验证邮箱是否匹配
+ * User: Johnson
+ * Date: 2020/5/22
+ * Time: 17:08
+ * @param string $email
+ * @return bool
+ */
+function preg_email($email)
+{
+    return preg_match("/^[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-z]{2,}$/", $email) ? true : false;
+}
+
+
+
+
+
+
+
+
+

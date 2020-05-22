@@ -22,6 +22,9 @@ str_utf8($str) | 将gbk字符串编码转为utf-8
 str_random($length = 6, $type = 'letter', $convert = 0) | 获取随机字符串  
 str_rev($str, $encoding = 'utf-8') | 字符串反转，支持中文  
 price_format($num, $decimals = 2) | 格式化数字，默认保留2位小数，四舍五入  
+hide_phone($str) | 替换手机号码中间四位数字，13012341234 -> 130****1234
+preg_phone($phone) | 验证手机号码是否匹配
+preg_email($email) | 验证邮箱是否匹配
 
 
 ### Array相关  
