@@ -159,3 +159,18 @@ function array2Xml_by_dom($arr, $dom = 0, $item = 0)
     }
     return $dom->saveXML();
 }
+
+/**
+ * Notes: 过滤数组空元素，不包括0
+ * User: Johnson
+ * Date: 2020/6/11
+ * Time: 17:33
+ * @param array $arr
+ * @return array
+ */
+function array_filter_reserve_num($arr){
+    return array_filter($arr, function($item){
+        if( is_numeric($item) ) return true;
+        return !($item == false);
+    });
+}

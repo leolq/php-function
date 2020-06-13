@@ -10,7 +10,39 @@
  */
 function file_extension($file)
 {
-    return substr($file, strripos($file, ".") + 1);
+    return strtolower(substr($file, strripos($file, ".") + 1));
+}
+
+/**
+ * Notes: 文件分段下载
+ * User: Johnson
+ * Date: 2020/6/13
+ * Time: 10:04
+ * @param string $path
+ * @param int $buffer
+ * @param array[] $allow_ext
+ * @return bool
+ */
+function file_download($path, $buffer = 1024, $allow_ext = ['jpg', 'png', 'jpeg', 'gif', 'zip']){
+    if(!is_file($path) && !is_readable($path)){
+        return false;
+    }
+    if(!in_array(file_extension($path), $allow_ext)){
+        return false;
+    }
+    $filesize = filesize($path);
+
+    header("Content-Type:application/octet-stream");
+    header("Accept-Ranges:bytes");
+    header("Content-Length:{$filesize}");
+    header('Content-Disposition:attachment; filename='.basename($path));
+
+    $handle = fopen($path, 'rb');
+    while (!feof($handle)) {
+        echo fread($handle, $buffer);
+    }
+    fclose($handle);
+    exit;
 }
 
 /**

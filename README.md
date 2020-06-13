@@ -1,6 +1,7 @@
 # php-function 收集整理积累的一些PHP常用自定义函数  
 > **欢迎提供一些PHP好用的自定义函数**  
 > **如有错误的地方欢迎指正**  
+> **PHP版本：7.4**
 > **不定时更新**
 
 ***
@@ -37,6 +38,7 @@ array_random($array, $number = null, $keep_key = false) | 获取随机数组元�
 xml2array($xml, $isfile = false) | xml转数组  
 array2xml($data, $root = true) | 数组转xml  
 array2Xml_by_dom($arr, $dom = 0, $item = 0) |  数组转xml   
+array_filter_reserve_num($arr) |  过滤数组空元素，不包括0  
 
 
 ### File相关
@@ -44,6 +46,7 @@ array2Xml_by_dom($arr, $dom = 0, $item = 0) |  数组转xml
 函数名称|说明  
 -|-
 file_extension($file) | 获取文件扩展名  
+file_download($path, $buffer = 1024, $allow_ext = ['jpg', 'png', 'jpeg', 'gif', 'zip']) | 文件分段下载
 get_all_files($path, &$files) | 获取目录下所有文件  
 get_all_files2($dir) | 获取目录下所有文件，非递归实现  
 get_dir_size($dir) | 获取目录大小  
