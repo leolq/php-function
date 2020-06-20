@@ -1,7 +1,7 @@
 # php-function 收集整理积累的一些PHP常用自定义函数  
 > **欢迎提供一些PHP好用的自定义函数**  
 > **如有错误的地方欢迎指正**  
-> **PHP版本：7.4**
+> **PHP版本：7.4**  
 > **不定时更新**
 
 ***
@@ -26,6 +26,8 @@ price_format($num, $decimals = 2) | 格式化数字，默认保留2位小数，�
 hide_phone($str) | 替换手机号码中间四位数字，13012341234 -> 130****1234
 preg_phone($phone) | 验证手机号码是否匹配
 preg_email($email) | 验证邮箱是否匹配
+str_utf8_unicode_encode($str) | utf8字符串转unicode编码
+str_utf8_unicode_decode($str) | unicode编码转utf8字符串
 
 
 ### Array相关  
@@ -63,7 +65,7 @@ api_json_return($status, $msg, $data = []) | api josn输出
 real_ip() | 获取真实IP  
 curl_post($url, $postData) | curl post请求  
 curl_get($url, $postData) | curl get请求  
-
+redirect($url, $time = 0, $msg = '') | 跳转
 
 
 

@@ -23,11 +23,12 @@ function file_extension($file)
  * @param array[] $allow_ext
  * @return bool
  */
-function file_download($path, $buffer = 1024, $allow_ext = ['jpg', 'png', 'jpeg', 'gif', 'zip']){
-    if(!is_file($path) && !is_readable($path)){
+function file_download($path, $buffer = 1024, $allow_ext = ['jpg', 'png', 'jpeg', 'gif', 'zip'])
+{
+    if (!is_file($path) && !is_readable($path)) {
         return false;
     }
-    if(!in_array(file_extension($path), $allow_ext)){
+    if (!in_array(file_extension($path), $allow_ext)) {
         return false;
     }
     $filesize = filesize($path);
@@ -35,7 +36,7 @@ function file_download($path, $buffer = 1024, $allow_ext = ['jpg', 'png', 'jpeg'
     header("Content-Type:application/octet-stream");
     header("Accept-Ranges:bytes");
     header("Content-Length:{$filesize}");
-    header('Content-Disposition:attachment; filename='.basename($path));
+    header('Content-Disposition:attachment; filename=' . basename($path));
 
     $handle = fopen($path, 'rb');
     while (!feof($handle)) {

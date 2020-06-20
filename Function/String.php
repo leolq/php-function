@@ -134,10 +134,61 @@ function preg_email($email)
     return preg_match("/^[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-z]{2,}$/", $email) ? true : false;
 }
 
+/**
+ * Notes: utf8字符串转unicode编码
+ * User: Johnson
+ * Date: 2020/6/13
+ * Time: 11:26
+ * @param string $str
+ * @return string
+ */
+function str_utf8_unicode_encode($str)
+{
+    $str = iconv('UTF-8', 'UCS-2BE', $str);
+    $len = strlen($str);
+    $unicode = '';
+    for ($i = 0; $i < $len - 1; $i = $i + 2) {
+        $c = $str[$i];
+        $c2 = $str[$i + 1];
+        if (ord($c) > 0) {
+            $unicode .= '\u' . base_convert(ord($c), 10, 16) . str_pad(base_convert(ord($c2), 10, 16), 2, 0, STR_PAD_LEFT);
+        } else {
+            $unicode .= '\u' . str_pad(base_convert(ord($c2), 10, 16), 4, 0, STR_PAD_LEFT);
+        }
+    }
+    return $unicode;
+}
 
-
-
-
+/**
+ * Notes: unicode编码转utf8字符串
+ * User: Johnson
+ * Date: 2020/6/13
+ * Time: 11:33
+ * @param string $str
+ * @return string
+ */
+function str_utf8_unicode_decode($str)
+{
+    $str = strtolower($str);
+    $pattern = '/([\w]+)|(\\\u([\w]{4}))/i';
+    preg_match_all($pattern, $str, $matches);
+    if (!empty($matches)) {
+        $decode = '';
+        for ($j = 0; $j < count($matches[0]); $j++) {
+            $res = $matches[0][$j];
+            if (strpos($res, '\\u') === 0) {
+                $code = base_convert(substr($res, 2, 2), 16, 10);
+                $code2 = base_convert(substr($res, 4), 16, 10);
+                $c = chr($code) . chr($code2);
+                $c = iconv('UCS-2BE', 'UTF-8', $c);
+                $decode .= $c;
+            } else {
+                $decode .= $res;
+            }
+        }
+    }
+    return $decode;
+}
 
 
 

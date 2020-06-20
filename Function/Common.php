@@ -139,3 +139,54 @@ function curl_get($url, $postData)
     curl_close($curl);
     return $data;
 }
+
+/**
+ * Notes: 跳转
+ * User: Johnson
+ * Date: 2020/6/13
+ * Time: 14:34
+ * @param string $url
+ * @param int $time
+ * @param string $msg
+ */
+function redirect($url, $time = 0, $msg = ''){
+    $str = <<<EOF
+            <html lang="en">
+                <head>
+                    %s
+                    <title>跳转</title>
+                    <style>
+                        .tips {
+                            text-align:center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div>
+                        <div class="tips">
+                            {$msg}
+                        </div>
+                        <div class="tips">
+                            系统将在<span style="color:red" id="time-num">{$time}</span>秒之后自动跳转到<a href="{$url}">{$url}...</a>
+                        </div>
+                    </div>
+                </body>
+                <script>
+                    let time = {$time};
+                    let countDown = setInterval(function(){
+                        time -= 1;
+                        if( time <= 0 ){
+                            clearInterval(countDown);
+                        }
+                        document.getElementById("time-num").innerHTML = time
+                    }, 1000);
+                </script>
+            </html>
+EOF;
+    if(headers_sent()){
+        echo sprintf($str, "<meta http-equiv='Refresh' content='{$time};URL={$url}'>");
+    }else{
+        header("Refresh:{$time};url={$url}");
+        if($time > 0) echo sprintf($str, "");
+    }
+}
